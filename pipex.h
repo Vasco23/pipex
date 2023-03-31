@@ -11,7 +11,7 @@
 
 typedef struct s_cmds
 {
-	char 	*cmd;
+	char 	**cmd;
 	int 	fd[2];
 	int 	passed;
 
@@ -42,6 +42,6 @@ int 			forking(t_cmds *cmds, int n);
 char 			*get_path(char **envp);
 char 			*do_comand(t_cmds *cmds, char *path, int n);
 char			*ft_strjoin_2(char const *s1, char const *s2);
-int				child_or_parente(int id, int ac, char **envp);
+int				child_or_parente(int id, char **envp);
 int 			child(t_cmds *cmds, t_file *file, int n, char **envp);
 #endif

@@ -8,7 +8,7 @@ char *get_path(char **envp)
 	while (envp && envp[i])
 	{
 		if(ft_strncmp(envp[i], "PATH=", 5) == 0)
-			return (ft_substr(envp[i], 5, strlen(envp[i] - 5)));
+			return (ft_substr(envp[i], 5, strlen(envp[i])));
 		i++;
 	}
 	return (NULL);
@@ -24,12 +24,13 @@ char *do_comand(t_cmds *cmds, char *path, int n)
 	div_path = ft_split(path, ':');
 	while (div_path[i])
 	{
-		path_send = ft_strjoin_2(div_path[i], cmds[n].cmd);
-		printf("%d, %s\n", n, path_send);
-		if (access(path_send, F_OK) == 1)
+		path_send = ft_strjoin_2(div_path[i], cmds[n].cmd[0]);
+		if (access(path_send, F_OK) == 0)
+		{
+			fprintf(stderr, "ola\n");
 			return (path_send);
+		}
 		i++;
-		free(path_send);
 	}
 	return (NULL);
 }

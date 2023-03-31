@@ -18,7 +18,7 @@ void get_array_of_structs(t_file *file, t_cmds *cmds, int ac, char **av)
 			f++;
 		}
 		else
-			cmds[c++].cmd = ft_strcpy(av[i]);
+			cmds[c++].cmd = ft_split(av[i], ' ');
 		i++;
 	}
 }
