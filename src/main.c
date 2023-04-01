@@ -5,17 +5,25 @@ int main(int ac, char **av, char **envp)
 	int i;
 	int j;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	if (num_of_arguments(ac) == 1)
 		return (printf("error\n"));
 	malloc_struct(file(), cmds(), ac);
 	get_array_of_structs(*file(), *cmds(), ac, av);
 	/* do_comand(*cmds(), envp, get_path(envp), 2); */
-	while (i < ac - 1)
+	while (i < ac - 3)
 	{
-		fprintf(stderr, "entrou_69\n");
-		child_or_parente(forking(*cmds(), j++), envp);
+		if(i == 0)
+		{
+			*file()[i].fd = open(*file()[i].file)
+			child_or_parente(forking(*cmds(), j++), envp, i);
+		}
+		if(i == ac - 2)
+		{
+			*file()[i].fd = open(*file()[i].file)
+			child_or_parente(forking(*cmds(), j++), envp, i);
+		}
 		i++;
 	}
 
