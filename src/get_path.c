@@ -30,6 +30,7 @@ char *do_comand(t_cmds *cmds, char *path, int n)
 			fprintf(stderr, "ola\n");
 			return (path_send);
 		}
+		free(path_send);
 		i++;
 	}
 	return (NULL);

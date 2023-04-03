@@ -26,12 +26,12 @@ void get_array_of_structs(t_file *file, t_cmds *cmds, int ac, char **av)
 t_cmds  **cmds(void)
 {
 	static t_cmds *cmds;
-	return (cmds);
+	return (&cmds);
 }
 
 t_file  **file(void)
 {
-	static t_file file[2];
+	static t_file *file;
 	return (&file);
 }
 
