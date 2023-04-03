@@ -12,11 +12,16 @@ int main(int ac, char **av, char **envp)
 	get_array_of_structs(*file(), *cmds(), ac, av);
 	while (i < ac - 3)
 	{
-		wait(NULL);
-		child_or_parente(envp, i);
+		forking(i);
 		i++;
 	}
 	i = 0;
+	while (i < ac - 3)
+	{
+		child_or_parente(envp, i, forking(i));
+		wait(NULL);
+		i++;
+	}
 	/* while (i++ < ac - 3)
 		waitpid(-1, NULL, 0); */
 	close(file()[0][0].fd);

@@ -3,8 +3,10 @@
 int child(int fd_in, int fd_out, char **envp, int n)
 {
 	char *path;
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
+	if (dup2(fd_in, STDIN_FILENO) == -1)
+		printf("ola\n");
+	if (dup2(fd_out, STDOUT_FILENO) == -1)
+		printf("ola\n");
 	close(fd_in);
 	close(fd_out);
 	path = do_comand(*cmds(), get_path(envp), n);

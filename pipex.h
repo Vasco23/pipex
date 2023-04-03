@@ -12,6 +12,7 @@
 typedef struct s_cmds
 {
 	char 	**cmd;
+	int		fd[2];
 }	t_cmds;
 
 typedef struct s_utils
@@ -34,11 +35,11 @@ int 			num_of_arguments(int ac);
 void 			malloc_struct(t_file **file, t_cmds **cmds ,int ac);
 void 			get_array_of_structs(t_file *file, t_cmds *cmds, int ac, char **av);
 char			*ft_strcpy(char *str1);
-int 			forking(t_cmds *cmds, int n);
+int 			forking(int n);
 char 			*get_path(char **envp);
 char 			*do_comand(t_cmds *cmds, char *path, int n);
 char			*ft_strjoin_2(char const *s1, char const *s2);
-int				child_or_parente(char **envp, int n);
+int				child_or_parente(char **envp, int n, int id);
 int 			child(int fd_in, int fd_out, char **envp, int n);
 
 #endif
