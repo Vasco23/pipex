@@ -1,4 +1,4 @@
-# include "../pipex.h"
+# include "../inc/pipex.h"
 
 int num_of_arguments(int ac)
 {

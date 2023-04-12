@@ -1,4 +1,4 @@
-# include "../pipex.h"
+# include "../inc/pipex.h"
 
 char *get_path(char **envp)
 {
@@ -27,13 +27,17 @@ char *do_comand(t_cmds *cmds, char *path, int n)
 		path_send = ft_strjoin_2(div_path[i], cmds[n].cmd[0]);
 		if (access(path_send, F_OK) == 0)
 		{
-			fprintf(stderr, "ola\n");
+			free_two_pointers(div_path);
+			free(path);
 			return (path_send);
 		}
-		free(path_send);
 		i++;
+		free(path_send);
 	}
-	return (NULL);
+	free(path);
+	path_send = ft_strdup("pipex");
+	free_two_pointers(div_path);
+	return (path_send);
 }
 
 char	*ft_strjoin_2(char const *s1, char const *s2)

@@ -4,13 +4,15 @@ SRC_NAME =	parse.c						\
 			array_of_structs.c			\
 			forks.c 					\
 			child.c 					\
-			parent.c 					\
 			get_path.c 					\
+			here_doc.c					\
+			get_next_line.c				\
+			get_next_line_utils.c		\
 			main.c
 
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -f
 
 #$(VERBOSE).SILENT:
@@ -20,7 +22,7 @@ LIBFT_PATH = ./libft
 FT_PRINTF = ./ft_printf/libftprintf.a
 FT_PRINTF_PATH = ./ft_printf
 
-INC = -I ./libft -I ./ft_printf -I.
+INC = -I ./inc	-I ./libft	-I ./ft_printf
 
 SRC_PATH = ./src
 
@@ -49,8 +51,8 @@ $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 
 clean:
 	$(RM)	$(SRC:=.o)
-	make clean -s -C $(FT_PRINTF_PATH)
-	make clean -s -C $(LIBFT_PATH)
+	make clean -C $(FT_PRINTF_PATH)
+	make clean -C $(LIBFT_PATH)
 	clear
 	@echo "                                                "
 	@echo " ********************************************** "
@@ -59,8 +61,8 @@ clean:
 	@echo "                                                "
 
 fclean: clean
-		make fclean -s -C $(FT_PRINTF_PATH)
-		make fclean -s -C $(LIBFT_PATH)
+		make fclean -C $(FT_PRINTF_PATH)
+		make fclean -C $(LIBFT_PATH)
 	$(RM)	$(NAME)
 
 re:	fclean	$(NAME)

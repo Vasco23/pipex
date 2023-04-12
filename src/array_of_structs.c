@@ -1,4 +1,4 @@
-# include "../pipex.h"
+# include "../inc/pipex.h"
 
 void get_array_of_structs(t_file *file, t_cmds *cmds, int ac, char **av)
 {
@@ -11,12 +11,13 @@ void get_array_of_structs(t_file *file, t_cmds *cmds, int ac, char **av)
 	f = 0;
 	while (i < ac)
 	{
-		if(i == 1 || i == ac - 1)
+		if (i == 1 || i == ac - 1)
 		{
 			file[f].file = ft_strcpy(av[i]);
-			ft_printf("%s\n", file[f].file);
 			f++;
 		}
+		else if (utils()->here_doc == 1 && i == 2)
+			cmds[c++].cmd = ft_split(av[i], '\0');
 		else
 			cmds[c++].cmd = ft_split(av[i], ' ');
 		i++;
