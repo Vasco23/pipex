@@ -1,13 +1,28 @@
-# include "../inc/pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vcacador <vcacador@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 15:00:03 by vcacador          #+#    #+#             */
+/*   Updated: 2023/06/20 16:09:31 by vcacador         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main(int ac, char **av, char **envp)
+#include "../inc/pipex.h"
+
+int	main(int ac, char **av, char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	utils()->ac = ac;
-	if (num_of_arguments(ac) == 1)
-		return (printf("error\n"));
+	if (num_of_arguments(utils()->ac) == 1)
+	{
+		perror("error");
+		exit(1);
+	}
 	here_doc(av);
 	malloc_struct(file(), cmds(), ac);
 	get_array_of_structs(*file(), *cmds(), ac, av);
@@ -17,21 +32,22 @@ int main(int ac, char **av, char **envp)
 	while (i < ac - 3)
 	{
 		if (child_or_parente(envp, i++, utils()->here_doc) == 1)
-			printf("error opening files\n");
+			perror("error opening files");
 	}
 	i = 0;
 	while (i++ < ac - 3)
 		waitpid(-1, NULL, -1);
 	free_all();
-	return(0);
+	return (0);
 }
 
-void free_all(void)
+void	free_all(void)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
+	close_fds();
 	while (i < 2)
 		free(file()[0][i++].file);
 	i = 0;
@@ -48,20 +64,40 @@ void free_all(void)
 		free(*cmds());
 }
 
-t_utils *utils(void)
+void	close_fds(void)
 {
-	static t_utils utils;
+	int	i;
+
+	i = 0;
+	if (utils()->here_doc == 0 && file()[0][0].fd > 0)
+		close(file()[0][0].fd);
+	if (file()[0][1].fd > 0)
+		close(file()[0][1].fd);
+	while (i < utils()->ac - 2)
+	{
+		if (cmds()[0][i].fd[0] > 1)
+			close(cmds()[0][i].fd[0]);
+		if (cmds()[0][i].fd[1] > 1)
+			close(cmds()[0][i].fd[1]);
+		i++;
+	}
+}
+
+t_utils	*utils(void)
+{
+	static t_utils	utils;
+
 	return (&utils);
 }
 
-void free_two_pointers(char **frees)
+void	free_two_pointers(char **frees)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!frees)
 		return ;
-	while(frees[++i])
+	while (frees[++i])
 		free(frees[i]);
 	free(frees);
 }

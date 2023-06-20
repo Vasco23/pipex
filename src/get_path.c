@@ -1,24 +1,36 @@
-# include "../inc/pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vcacador <vcacador@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 15:01:32 by vcacador          #+#    #+#             */
+/*   Updated: 2023/04/12 16:19:30 by vcacador         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *get_path(char **envp)
+#include "../inc/pipex.h"
+
+char	*get_path(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (envp && envp[i])
 	{
-		if(ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 			return (ft_substr(envp[i], 5, strlen(envp[i])));
 		i++;
 	}
 	return (NULL);
 }
 
-char *do_comand(t_cmds *cmds, char *path, int n)
+char	*do_comand(t_cmds *cmds, char *path, int n)
 {
-	char **div_path;
-	char *path_send;
-	int i;
+	char	**div_path;
+	char	*path_send;
+	int		i;
 
 	i = 0;
 	div_path = ft_split(path, ':');
@@ -35,7 +47,7 @@ char *do_comand(t_cmds *cmds, char *path, int n)
 		free(path_send);
 	}
 	free(path);
-	path_send = ft_strdup("pipex");
+	path_send = ft_strdup(cmds[n].cmd[0]);
 	free_two_pointers(div_path);
 	return (path_send);
 }

@@ -1,12 +1,24 @@
-# include "../inc/pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   forks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vcacador <vcacador@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 15:13:58 by vcacador          #+#    #+#             */
+/*   Updated: 2023/06/20 16:29:28 by vcacador         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int here_doc_do(int fd);
+#include "../inc/pipex.h"
+
+int		here_doc_do(int fd);
 size_t	ft_strlen_2(const char *str );
 
 void	forking(void)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < utils()->ac - 2)
 	{
@@ -29,14 +41,15 @@ int	child_or_parente(char **envp, int n, int j)
 	}
 	else if (n == 0)
 	{
-		file()[0][0].fd = open(file()[0][0].file, O_RDONLY);
+		(file()[0][0].fd) = open(file()[0][0].file, O_RDONLY);
 		if (file()[0][0].fd < 0)
 			return (1);
 		child(file()[0][0].fd, cmds()[0][n].fd[1], envp, n);
 	}
 	else if (n == utils()->ac - 4)
 	{
-		file()[0][1].fd = open(file()[0][1].file, O_RDWR | O_CREAT | O_TRUNC, 0777);
+		(file()[0][1].fd)
+			= open(file()[0][1].file, O_CREAT | O_RDWR | O_TRUNC, 0777);
 		if (file()[0][1].fd < 0)
 			return (1);
 		child(cmds()[0][n - 1].fd[0], file()[0][1].fd, envp, n);
@@ -46,25 +59,25 @@ int	child_or_parente(char **envp, int n, int j)
 	return (0);
 }
 
-
-int here_doc_do(int fd)
+int	here_doc_do(int fd)
 {
-	int i;
+	int		i;
+	char	*line;
 
 	i = 0;
-	char *line;
 	while (1)
 	{
 		line = get_next_line(0);
+		if (!line)
+			return (1);
 		if (ft_strlen(line) == 0)
 			i = 2;
 		else
 			i = ft_strlen_2(line);
-		if (ft_strncmp(cmds()[0][0].cmd[0], line, i) == 0 
-			&& i == (int)ft_strlen_2(cmds()[0][0].cmd[0]))
+		if (!strcmp(cmds()[0][0].cmd[0], line))
 		{
 			free(line);
-			return(1);
+			return (1);
 		}
 		write(fd, line, strlen(line));
 		free(line);

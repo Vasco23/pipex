@@ -1,8 +1,20 @@
-# include "../inc/pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vcacador <vcacador@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 14:59:29 by vcacador          #+#    #+#             */
+/*   Updated: 2023/04/12 16:20:34 by vcacador         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int num_of_arguments(int ac)
+#include "../inc/pipex.h"
+
+int	num_of_arguments(int ac)
 {
-	if (ac < 5)
+	if (ac <= 4)
 		return (1);
 	return (0);
 }

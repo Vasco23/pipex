@@ -1,4 +1,0 @@
-LD_LIBRARY_PATH=/usr/lib/debug
-GTK_PATH=/snap/code/123/usr/lib/x86_64-linux-gnu/gtk-3.0
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
-LOCPATH=/snap/code/123/usr/lib/locale

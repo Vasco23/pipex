@@ -11,7 +11,7 @@ SRC_NAME =	parse.c						\
 			main.c
 
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 RM = rm -f
 
@@ -34,20 +34,20 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 
 all: $(NAME)
 
-$(NAME) : $(SRC)
+$(NAME) : $(OBJS)
 	make -C $(FT_PRINTF_PATH) 
 	make -C $(LIBFT_PATH)
 	$(CC) $(CFLAGS) $(SRC) $(INC) $(FT_PRINTF) $(LIBFT) -o $(NAME)
 	clear
-
-$(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
-	mkdir -p objects
-	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 	@printf "                                                \n"
 	@printf " ********************************************** \n"
 	@printf " ********* Very good, Very nice!!! ************ \n"
 	@printf " ********************************************** \n"
 	@printf "                                                \n"
+
+$(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
+	mkdir -p objects
+	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 
 clean:
 	$(RM)	$(SRC:=.o)
@@ -66,3 +66,5 @@ fclean: clean
 	$(RM)	$(NAME)
 
 re:	fclean	$(NAME)
+
+.PHONY: all clean fclean re
