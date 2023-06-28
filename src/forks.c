@@ -6,7 +6,7 @@
 /*   By: vcacador <vcacador@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:13:58 by vcacador          #+#    #+#             */
-/*   Updated: 2023/06/20 16:29:28 by vcacador         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:58:34 by vcacador         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,35 @@ int	child_or_parente(char **envp, int n, int j)
 	return (0);
 }
 
-int	here_doc_do(int fd)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		i;
-	char	*line;
+	unsigned int	i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return ((s1)[i] - (s2)[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	here_doc_do(int fd)
+{
+	char	*line;
+
 	while (1)
 	{
 		line = get_next_line(0);
 		if (!line)
 			return (1);
-		if (ft_strlen(line) == 0)
-			i = 2;
-		else
-			i = ft_strlen_2(line);
-		if (!strcmp(cmds()[0][0].cmd[0], line))
+		printf("line - [%s]\n", line);
+		printf("comd - [%s]\n", cmds()[0][0].cmd[0]);
+		if (!ft_strcmp(cmds()[0][0].cmd[0], line) &&
+			(ft_strlen_2(line) == ft_strlen_2(cmds()[0][0].cmd[0])))
 		{
 			free(line);
 			return (1);
@@ -85,7 +98,7 @@ int	here_doc_do(int fd)
 	return (0);
 }
 
-size_t	ft_strlen_2(const char *str )
+size_t	ft_strlen_2(const char *str)
 {
 	int	i;
 

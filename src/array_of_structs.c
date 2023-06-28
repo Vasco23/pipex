@@ -6,7 +6,7 @@
 /*   By: vcacador <vcacador@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:04:51 by vcacador          #+#    #+#             */
-/*   Updated: 2023/04/12 16:22:52 by vcacador         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:05:13 by vcacador         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,9 @@ void	malloc_struct(t_file **file, t_cmds **cmds, int ac)
 {
 	*cmds = malloc(sizeof(t_cmds) * (ac - 2));
 	*file = malloc(sizeof(t_file) * 3);
+	if (!cmds && !file)
+	{
+		free_all();
+		exit(1);
+	}
 }
